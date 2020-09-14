@@ -1,21 +1,25 @@
+<!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<!--重要meta, 必须!-->
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,shrink-to-fit=no"/>
-<title>SUBWAY</title>
-</head>
-<body>
-<div id="mysubway"></div>
+    <head>
+        <meta charset="utf-8">
+        <title>数据结构课设计 北京地铁费用查询</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="./script/svg.js"></script>
+        <script src="./script/svg.draggable.js"></script>
+        <script src="./script/run.js"></script>
+    </head>
 
-<script src="https://webapi.amap.com/subway?v=1.0&amp;key=68f1c1472d190072ed261677a0ab1e88&amp;callback=cbk"></script>
-<script type="text/javascript">
-    //开启easy模式, 直接完成地铁图基本功能, 无需自己写交互
-    window.cbk = function(){
-        var mysubway = subway("mysubway", {
-            easy: 1
-        });
-    };
-</script>
-</body>
+    <!-- 主体显示框和侧边栏 -->
+    <body>
+        <!-- 主要包括主界面和站点设置框 -->
+        <div id="mainFrame" style="height: 95%; display: flex">
+            <!-- 地铁的主要的显示界面 -->
+            <div id="subwayDisplay" style="overflow: scroll; flex: 1; height: 100%;">
+                <!-- 这里面不添加HTML，由svg.js生成 -->
+            </div>
+
+            
+
+        </div>
+    </body>
 </html>
