@@ -1,0 +1,1 @@
+var mysubway = subway("mysubway", {easy: 1});
