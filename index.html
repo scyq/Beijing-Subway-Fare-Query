@@ -4,22 +4,119 @@
         <meta charset="utf-8">
         <title>数据结构课设计 北京地铁费用查询</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="./script/jquery-ui/jquery-ui.min.css">
+        <link rel="stylesheet" type="text/css" href="./css/style.css">
+        <script src="./script/jquery-ui/external/jquery/jquery.js"></script>
+        <script src="./script/jquery-ui/jquery-ui.min.js"></script>
         <script src="./script/svg.js"></script>
         <script src="./script/svg.draggable.js"></script>
-        <script src="./script/run.js"></script>
     </head>
-
+    
     <!-- 主体显示框和侧边栏 -->
     <body>
         <!-- 主要包括主界面和站点设置框 -->
         <div id="mainFrame" style="height: 95%; display: flex">
             <!-- 地铁的主要的显示界面 -->
-            <div id="subwayDisplay" style="overflow: scroll; flex: 1; height: 100%;">
+            <div id="displayPort" style="overflow: scroll; flex: 1; height: 100%;">
                 <!-- 这里面不添加HTML，由svg.js生成 -->
+                <div id="subwayDisplay" style="height: 100%;">
+
+                </div>
             </div>
 
-            
+            <!-- 地铁地图的主要节点设置 -->
+            <div id="mapSetting">
+                <div style="height: 15%; position: relative">
+                    <h2 style="text-align: center; margin: 5% 0;">地铁地图生成引擎和计费系统</h2>
+                    <p><b>Author: 陈宇卿</b></p>
+                    <p><b>数据结构课程设计</b></p>
+                    <a href="https://github.com/scyq/Beijing-Subway-Fare-Query">GitHub地址</a>
+                </div>
+
+                <!-- 主要用Jquery-ui折叠面板实现功能切换 -->
+                <div id="funcSwitcher">
+                    <h3>添加站点</h3>
+                    <div>
+                        <p><label>站点名称：<input id="addStationName"></label></p>
+                        <p><label>站点ID：<input id="addStationID" type="number"></label></p>
+                        <p><button id="addConfirm">添加</button></p>
+                        <p><span id="addStationRes"></span></p>
+                    </div>
+                    <h3>删除站点</h3>
+                    <div>
+                        <h3>请勾选要删除的站点</h3>
+                        <p style="color: red;"><b>删除站点将删除与其连接的所有站点！</b></p>
+                        <!-- 可以添加站点 -->
+                        <div id="removeChoiceBox" style="overflow: auto;">
+
+                        </div>
+                        <p><button id="removeNodeConfirm">确定删除</button></p>
+                        <p><span id="removeRes"></span></p>
+                        
+                    </div>
+                    <h3>添加线路</h3>
+                    <div>
+                        <p><label>线路名：<input id="addLineName" value="1号线"></label></p>
+                        <p><label>线路ID：<input id="addLineID" type="number"></label></p>
+                        <p><label>线路绘制偏移量（默认值为0）<input id="addLineOffset" type="number" value="0"></label></p>
+                        <p><label>线路颜色：<input id="addLineColor" type="color" value="#cc0000" /></label></p>
+                        <p><b>请按顺时针、按顺序选择该线途径站点</b></p>
+                        <!-- 显示可以哪些站点的div -->
+                        <div id="addLineStationSelect">
+
+                        </div>
+                        
+                        <p><label><input id="addLineIfLoop" type="checkbox" />环线？</label></p>
+                        <p><button id="addLineConfirm">确认</button></p>
+                        <p><span id="addLineRes"></span></p>
+                    </div>
+                    <h3>查看、管理线路</h3>
+                    <div>
+                        <p>若要删除线路，勾选相应线路</p>
+                        <!-- 显示已有的线路 -->
+                        <div id="removeLineSelect">
+
+                        </div>
+
+                        <p><button id="removeLineConfirm">确定删除</button></p>
+                        <p><span id="removeLineRes"></span></p>
+
+                    </div>
+                    <h3>清除、保存、加载</h3>
+                    <div>
+                        <p><button id="clearAll">清除所有站点和路线</button></p>
+                        <p><button id="saveToLocal">保存地图信息到本地</button></p>
+                        <p><button id="loadFromLocal">从本地读取地图信息</button></p>
+                        <p><textarea style="height: 250px; width: 90%;" id="jsonInfo"></textarea></p>
+                        <p><span id="clearAndSaveRes">
+                            <!-- 显示清除和保存信息 -->
+                        </span></p>
+                        <p><button id="exportJson">导出到 JSON</button></p>
+                        <p><button id="importJson">导入JSON数据</button></p>
+                    </div>
+                </div>
+                
+                <!-- 设置地铁站点SVG -->
+                <div id="svgSetting" style="height: 20%; overflow: visible;">
+                    <p><span>站名字体大小：</span><input type="number" id="fontSize" value=12 /> px</p>
+                    <p><span>站点大小：</span><input type="number" id="stationSize" value=18 /> px</p>
+                    <p><span>站点描边：</span><input type="number" id="stationStroke" value=4 /> px</p>
+                    <p><span>线路宽度：</span><input type="number" id="lineWidth" value=8 /> px</p>
+                </div>
+
+            </div>
 
         </div>
+
+        <!-- 缩放控制条 -->
+        <div id="sliderbarContainer" style="height:5%; width:100%; display:flex">
+            <div style="flex:1; overflow:hidden">
+                <div>缩放条（或鼠标滚轮）：<div style="font-size: x-small;"></div></div>
+            </div>
+            <div style="flex:8">
+                <input type="range" id="zoomSize" min="1" max="100" step="1" value="40" defaultValue="40" style="width: 100%; height: 100%" />
+            </div>
+        </div>
     </body>
+    <script src="./script/run.js"></script>
 </html>
