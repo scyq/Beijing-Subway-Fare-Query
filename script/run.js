@@ -94,3 +94,4 @@ $('#loadFromLocal').button();
 $('#importJson').button();
 $('#exportJson').button();
 
+// 2020.9.16 我没有时间写代码 sad :(
