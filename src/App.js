@@ -11,15 +11,17 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
-import {mainListItems} from './NavBar';
+import NavBar from './NavBar';
+import MenuIcon from '@material-ui/icons/Menu';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
+      <Link color="inherit" href="https://github.com/scyq">
         18105226 陈宇卿 数据结构课设
       </Link>{' '}
       {new Date().getFullYear()}
@@ -111,7 +113,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function App() {
   const classes = useStyles();
-  const open = React.useState(true);
+
+  /* 实现抽屉效果的方法 */
+  const [open, setOpen] = React.useState(true);
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
 
   return (
     <div className={classes.root}>
@@ -122,13 +133,14 @@ export default function App() {
             edge="start"
             color="inherit"
             aria-label="open drawer"
+            onClick={handleDrawerOpen}
             className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
           >
+            <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             北京地铁费用查询系统
           </Typography>
-
         </Toolbar>
       </AppBar>
       
@@ -140,17 +152,19 @@ export default function App() {
         open={open}
       >
         <div className={classes.toolbarIcon}>
+          <IconButton onClick={handleDrawerClose}>
+            <ChevronLeftIcon />
+          </IconButton>
         </div>
         <Divider />
-        <List>{mainListItems}</List>
+          <List> 
+            <NavBar />
+          </List>
         <Divider />
       </Drawer>
-      
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={3}>
-          </Grid>
           <Box pt={4}>
             <Copyright />
           </Box>
