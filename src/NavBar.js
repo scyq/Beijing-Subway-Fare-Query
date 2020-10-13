@@ -16,17 +16,24 @@ import LayersIcon from '@material-ui/icons/Layers';
 
 class NavBar extends React.Component {
 
-    /* 构造器，用于设置不同标签页的状态 */
     constructor(props) {
         super(props);
+
+        // itemIdex 代表不同标签页
         this.state = {
             itemIdex : 0
         };
     }
 
+    getIndex = () => {
+        return this.state.itemIdex;
+    }
+
     /* 处理点击，改变状态以显示不同内容 */
     clickHandler = (index) => {
         this.setState({itemIdex : index});
+        // 改变父组件的index值
+        this.props.setShowIndex(index);
     }
 
     render() {

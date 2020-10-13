@@ -15,6 +15,7 @@ import Link from '@material-ui/core/Link';
 import NavBar from './NavBar';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import Content from './Content';
 
 
 function Copyright() {
@@ -123,6 +124,9 @@ export default function App() {
     setOpen(false);
   };
 
+  // 当前现实的页面
+  const [showIndex, setShowIndex] = React.useState(0);
+
 
   return (
     <div className={classes.root}>
@@ -144,6 +148,7 @@ export default function App() {
         </Toolbar>
       </AppBar>
       
+      {/* Drawer 用于实现抽屉折叠效果 */}
       <Drawer
         variant="permanent"
         classes={{
@@ -158,13 +163,21 @@ export default function App() {
         </div>
         <Divider />
           <List> 
-            <NavBar />
+            <NavBar 
+              setShowIndex = {setShowIndex}
+            />
           </List>
         <Divider />
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
+
+          {/* 主要内容显示在Conten中，利用传入的showIndex来表示渲染哪个选项卡 */}
+          <Content 
+            showIndex = {showIndex}
+          />
+
           <Box pt={4}>
             <Copyright />
           </Box>
