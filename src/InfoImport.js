@@ -5,7 +5,12 @@
 
 import React from 'react'
 import Button from '@material-ui/core/Button'
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography'
+import DataHandler from './DataHandler'
+
+const InfoStyles = {
+    marginTop : 100,
+}
 
 
 /* 导入数据的按钮 */
@@ -14,17 +19,23 @@ class InfoImport extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            txtStr : ""
+            txtStr : "",
+            txtArr : []
         };
     }
 
+    static getInfo() {
+        return this.state.txtArr;
+    }
+
+    // 触发表单提交
     txtSubmit() {
         document.getElementById("selectTXT").click();
     }
 
     /* 
         因为在内部函数会丢失this
-        将组件的this传进去
+        将组件的this传进去，obj为该组件的this
     */
     fileSelectHandler(obj) {
         const txtFile = document.getElementById("selectTXT").files[0];
@@ -35,11 +46,15 @@ class InfoImport extends React.Component {
             onload 对时间event进行处理
         */
         reader.onload = (event) => {
-            console.log(event.target.result);
+            console.log(event.target.result.split('\n'));
             obj.setState({
-                txtStr : event.target.result
+                data : new DataHandler(parseInt(event.target.result.split("\n")[0])),
+                txtStr : event.target.result,
+                txtArr : event.target.result.split("\n")
             });
+            console.log(this.state.data.lineNumbers);
         };
+
     }
 
     render() {
@@ -49,8 +64,8 @@ class InfoImport extends React.Component {
                     导入地铁数据
                 </Button>
 
-                <Typography>
-                    {this.state.txtStr}
+                <Typography style={InfoStyles}>
+                    {'线路数量 : ' + this.state.txtArr[0]}
                 </Typography>
                 
                  {/* input是实际提交的表单，Button只是用于触发 */}
@@ -62,5 +77,4 @@ class InfoImport extends React.Component {
 }
 
 export default InfoImport;
-/* 导入后的数据显示 */
 
