@@ -1,5 +1,7 @@
 class Station {
     /*
+        @constructor
+        站点信息
         @param
         {string} name 站点名称
         {Array{string}} onLine 在几号线上
@@ -14,8 +16,11 @@ class Station {
 class DataHandler{
 
     /*
+        @constructor
+        处理数据的类
         @param
         {Dict} StationController 存储所有站的信息，每个信息对应的是一个Station对象
+        
     */
     constructor() {
         this.StationController = {
@@ -24,16 +29,13 @@ class DataHandler{
     }
 
     /*
-        处理数据的类
-     */
-
-     /*
+        @function cutLine
         用于把地铁各站间的数据分开，提取对应站点
         @param
         {Array} txtArr 读入后被分割的txt数组 注意要保留地铁线路数
         {string} spliter 分割符，不填入默认为中文逗号
-     */
-     cutLine(txtArr, spliter) {
+    */
+    cutLine(txtArr, spliter) {
         var real_spliter = undefined;
         if (arguments.length < 2) real_spliter = "，";
         else real_spliter = spliter;
@@ -55,8 +57,15 @@ class DataHandler{
                 }
             }
         }
+    }
+
+    /*
+        @function createAdjList
+        创建邻接表
+    */
+    createAdjList() {
         
-     }
+    }
 };
 
 export default DataHandler;

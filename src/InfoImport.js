@@ -40,8 +40,11 @@ class InfoImport extends React.Component {
     }
 
     /* 
+        @function fileSelectHandler
         因为在内部函数会丢失this
         将组件的this传进去，obj为该组件的this
+        @param 
+        {object} obj this指针
     */
     fileSelectHandler(obj) {
         const txtFile = document.getElementById("selectTXT").files[0];
