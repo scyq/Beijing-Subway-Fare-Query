@@ -27,7 +27,7 @@
     <title>Beijing Subway Fare Query</title>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <script src="https://webapi.amap.com/subway?v=1.0&amp;key=68f1c1472d190072ed261677a0ab1e88&amp;callback=cbk"></script>
     <div id="root"></div>
     <!--
       This HTML file is a template.
@@ -40,4 +40,11 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+  <script type="text/javascript">
+    window.cbk = function(){
+        var mysubway = subway("map", {
+            easy: 1
+        });
+    };
+  </script>
 </html>

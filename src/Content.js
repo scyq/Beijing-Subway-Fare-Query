@@ -6,10 +6,11 @@
 
 import React from 'react'
 import InfoImport from './InfoImport'
+import Map from './Map'
 
 
 class Content extends React.Component {
-    
+
     render() {
         if (this.props.showIndex === 0) {
             return (
@@ -18,9 +19,7 @@ class Content extends React.Component {
         }
         else {
             return (
-                <div>
-
-                </div>
+                <Map />
             );
         }
     }

@@ -70,7 +70,7 @@ class InfoImport extends React.Component {
                 }
             );
         };
-        // console.log(this.state.data);
+        
     }
 
     render() {
