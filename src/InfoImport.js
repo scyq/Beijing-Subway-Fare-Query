@@ -7,9 +7,10 @@ import React from 'react'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import DataHandler from './DataHandler'
+import { ListItem } from '@material-ui/core'
 
 const InfoStyles = {
-    marginTop : 100,
+    marginTop : 50,
 }
 
 
@@ -19,25 +20,23 @@ class InfoImport extends React.Component {
     /*
         @param
         {StationController} data 存储所有站的信息
-        {string} txtStr 读入txt的纯字符串
-        {Array} txtArr 按照\n分割为数组的txtStr 
+        {Array} txtArr 按照\n分割为数组的txtStr         
+        {Array} showListItems 渲染列表的JSX
     */
     constructor(props) {
         super(props);
         this.state = {
-            txtStr : "",
-            txtArr : []
+            data : new DataHandler(),
+            txtArr : [],
+            showListItems : []
         };
-    }
-
-    static getInfo() {
-        return this.state.txtArr;
     }
 
     // 触发表单提交
     txtSubmit() {
         document.getElementById("selectTXT").click();
     }
+
 
     /* 
         @function fileSelectHandler
@@ -57,20 +56,26 @@ class InfoImport extends React.Component {
         reader.onload = (event) => {
             // console.log(event.target.result.split('\n'));
             obj.setState({
-                data : new DataHandler(),
-                txtStr : event.target.result,
-                txtArr : event.target.result.split("\n")
-            });
-            this.state.data.cutLine(this.state.txtArr);
-            console.log(this.state.data);
-            // console.log(Object.keys(this.state.data.StationController).length);
-            // console.log(this.state.data.lineNumbers);
+                txtArr : event.target.result.split("\n"),
+            },
+                () => {
+                    obj.state.data.cutLine(event.target.result.split("\n"));
+                    obj.setState({
+                        showListItems : this.state.data.lineInfo.map(line => {
+                            return (<ListItem key={line[0]} value={line[1]}>{line[0]} 一共有 {line[1]} 站</ListItem>);
+                        })
+                    });
+                    // 这里强行重新渲染来保证同步....
+                    obj.forceUpdate();
+                }
+            );
         };
-
+        // console.log(this.state.data);
     }
 
     render() {
         return (
+            
             <div>
                 <Button variant="contained" color="primary" onClick={this.txtSubmit}>
                     导入地铁数据
@@ -79,9 +84,17 @@ class InfoImport extends React.Component {
                 <Typography style={InfoStyles}>
                     {'线路数量 : ' + this.state.txtArr[0]}
                 </Typography>
-                
+
                  {/* input是实际提交的表单，Button只是用于触发 */}
                  <input id="selectTXT" type="file" hidden onChange={() => this.fileSelectHandler(this)} accept=".txt" />
+
+                <ul>
+                    {console.log(this.state.data.lineInfo)}
+                    {
+                        this.state.showListItems
+                    }
+                </ul>
+        
             </div>
         );
     }

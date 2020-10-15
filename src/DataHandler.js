@@ -20,12 +20,13 @@ class DataHandler{
         处理数据的类
         @param
         {Dict} StationController 存储所有站的信息，每个信息对应的是一个Station对象
-        
+        {Array{Array}} lineInfo 二位数组，0存线路名称，1成站点数
     */
     constructor() {
         this.StationController = {
 
         };
+        this.lineInfo = [];
     }
 
     /*
@@ -43,7 +44,9 @@ class DataHandler{
         for (var i = 1; i <= linesCounts; i++){
             var tempLine = txtArr[i].split(real_spliter);
             // console.log(tempLine);
+            var lineStationCnts = parseInt(tempLine[2]);  // 地铁线路总站数
             var lineName = tempLine[1]; // 地铁线路名称 {string}
+            this.lineInfo.push([lineName, lineStationCnts]);
             // 遍历每个站
             for (var j = 3; j < tempLine.length; j+=2) {
                 // 名字必须要去掉 \r 等回车换行符
