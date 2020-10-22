@@ -68,8 +68,26 @@ class Edge {
 }
 
 /*
-    Di
+    Dijkstra 算法
+    @static function Dijkstra
+    求两点最短路径
+    @param
+    {string} start 始发站
+    {string} end 终点站
+    {Dict} adjList 邻接表
+    @return 
+    {number} res 最短距离
 */
+function Dijkstra(start, end, adjList) {
+    let arrived = [start];  /* 到达过的点 */
+    let lastNode = start; /* 上一次走过的点 */
+    while (lastNode !== end) {
+        let min = [undefined, parseFloat(Number.MAX_SAFE_INTEGER)];     /* 0号位置存站点，1号位置存最短距离 */
+        for (let node of arrived) {     /* 对于所有可达集合内的元素进行遍历 */
+            let tempAdj = adjList[node];    /* 该元素的邻接表 */
+        } 
+    }
+}
 
 
 class DataHandler{
@@ -120,7 +138,7 @@ class DataHandler{
                 if (this.StationController.hasOwnProperty(stationName)) {           /* 已经遍历过的站 */          
                     this.StationController[stationName].onLine.add(lineName);
                 } 
-                else {
+                else {  /* 如果这是没有遍历过的点 */
                     this.StationController[stationName] = new Station(stationName);
                     this.StationController[stationName].onLine.add(lineName);
                 }
@@ -148,3 +166,4 @@ class DataHandler{
 
 export default DataHandler;
 export {Station};
+export {Dijkstra};
