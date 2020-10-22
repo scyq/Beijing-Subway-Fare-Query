@@ -15,17 +15,23 @@ class Content extends React.Component {
     render() {
         if (this.props.showIndex === 0) {
             return (
-                <InfoImport />
+                <InfoImport 
+                    data = {this.props.data}
+                />
             );
         }
         else if (this.props.showIndex === 1) {
             return (
-                <FeeTable />
+                <FeeTable 
+                    data = {this.props.data}
+                />
             );
         }
         else {
             return (
-                <Map />
+                <Map 
+                    data = {this.props.data}
+                />
             );
         }
     }

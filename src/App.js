@@ -16,6 +16,7 @@ import NavBar from './NavBar';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Content from './Content';
+import DataHandler from './DataHandler';
 
 
 function Copyright() {
@@ -117,6 +118,10 @@ export default function App() {
 
   /* 实现抽屉效果的方法 */
   const [open, setOpen] = React.useState(true);
+
+  /* 记录、保存数据的类，保证不会被回收 */
+  const [data] = React.useState(new DataHandler());
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -176,6 +181,7 @@ export default function App() {
           {/* 主要内容显示在Conten中，利用传入的showIndex来表示渲染哪个选项卡 */}
           <Content 
             showIndex = {showIndex}
+            data = {data}
           />
 
           <Box pt={4}>

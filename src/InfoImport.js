@@ -6,7 +6,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import DataHandler from './DataHandler';
 import { ListItem } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
@@ -22,14 +21,12 @@ class InfoImport extends React.Component {
         @param
         {StationController} data 存储所有站的信息
         {Array} txtArr 按照\n分割为数组的txtStr         
-        {Array} showListItems 渲染列表的JSX
     */
     constructor(props) {
         super(props);
         this.state = {
-            data : new DataHandler(),
-            txtArr : [],
-            showListItems : [],
+            data : props.data,
+            txtArr : []
         };
     }
 
@@ -45,7 +42,6 @@ class InfoImport extends React.Component {
         将组件的this传进去，obj为该组件的this
         @param 
         {object} obj this指针
-        {function} callback 回调函数，触发重新渲染
     */
     fileSelectHandler(obj) {
         const txtFile = document.getElementById("selectTXT").files[0];
@@ -56,22 +52,27 @@ class InfoImport extends React.Component {
             onload 对时间event进行处理
         */
         reader.onload = (event) => {
-            // console.log(event.target.result.split('\n'));
             obj.setState({
                 txtArr : event.target.result.split("\n"),
             },
                 () => {
                     obj.state.data.cutLine(event.target.result.split("\n"));
-                    obj.setState({
-                        showListItems : this.state.data.lineInfo.map(line => {
-                            return (<ListItem key={line[0]} value={line[1]}>{line[0]} 一共有 {line[1]} 站
-                            </ListItem>);
-                        })
-                    });
                 }
             );
+            obj.forceUpdate();  /* 强制重新渲染 */
         };
+    }
 
+    renderStationList(lineInfo) {
+        if (!lineInfo) return "没有查询到地铁信息";
+        else {
+            let showListItems = undefined;
+            showListItems = lineInfo.map(line => {
+                return (<ListItem key={line[0]} value={line[1]}>{line[0]} 一共有 {line[1]} 站
+                </ListItem>);
+            });
+            return showListItems;
+        }
     }
 
     render() {
@@ -83,7 +84,7 @@ class InfoImport extends React.Component {
                 </Button>
 
                 <Typography style={InfoStyles}>
-                    {'线路数量 : ' + this.state.txtArr[0]}
+                    {'线路数量 : ' + this.state.data.allLine.length}
                 </Typography>
 
                  {/* input是实际提交的表单，Button只是用于触发 */}
@@ -91,9 +92,7 @@ class InfoImport extends React.Component {
 
                 <ul>
                     {console.log(this.state.data)}
-                    {
-                        this.state.showListItems
-                    }
+                    {this.renderStationList(this.state.data.lineInfo)}
                 </ul>
         
             </div>
