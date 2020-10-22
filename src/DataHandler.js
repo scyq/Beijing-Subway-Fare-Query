@@ -81,12 +81,22 @@ class Edge {
 function Dijkstra(start, end, adjList) {
     let arrived = [start];  /* 到达过的点 */
     let lastNode = start; /* 上一次走过的点 */
+    let res = 0;
     while (lastNode !== end) {
         let min = [undefined, parseFloat(Number.MAX_SAFE_INTEGER)];     /* 0号位置存站点，1号位置存最短距离 */
         for (let node of arrived) {     /* 对于所有可达集合内的元素进行遍历 */
             let tempAdj = adjList[node];    /* 该元素的邻接表 */
+            for (let edge of tempAdj) {
+                if (edge.distance < min.distance && arrived.indexOf(arrived) === -1) {
+                    min = [edge.to, edge.distance];
+                }
+            }
+            
         } 
+        lastNode = min[0];
+        res += min[1];
     }
+    return res;
 }
 
 

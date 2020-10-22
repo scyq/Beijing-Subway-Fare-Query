@@ -8,9 +8,15 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import DirectionsSubwayIcon from '@material-ui/icons/DirectionsSubway';
 import DirectionsRailwayIcon from '@material-ui/icons/DirectionsRailway';
+import IconButton from '@material-ui/core/IconButton';
+import DirectionsIcon from '@material-ui/icons/Directions';
 
 
 class FeeTable extends React.Component{
+
+    inputStartorEnd() {
+
+    }
     
     render() {
        return (
@@ -20,7 +26,7 @@ class FeeTable extends React.Component{
                         <DirectionsSubwayIcon />
                     </Grid>
                     <Grid item>
-                        <TextField id="start" label="始发站" />
+                        <TextField id="start" label="始发站" onChange/>
                     </Grid>
                 </Grid>
 
@@ -32,6 +38,10 @@ class FeeTable extends React.Component{
                         <TextField id="end" label="终点站" />
                     </Grid>
                 </Grid>
+
+                <IconButton aria-label="go" color="primary">
+                    <DirectionsIcon />
+                </IconButton>
             </div>
        );
     }
