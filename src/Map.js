@@ -3,7 +3,7 @@
     地图展示类
  */
 
- import React from 'react'
+ import React from 'react';
 
  class Map extends React.Component{
 

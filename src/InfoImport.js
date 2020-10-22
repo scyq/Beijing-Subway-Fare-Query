@@ -3,11 +3,12 @@
     导入数据页面
 */
 
-import React from 'react'
-import Button from '@material-ui/core/Button'
-import Typography from '@material-ui/core/Typography'
-import DataHandler from './DataHandler'
-import { ListItem } from '@material-ui/core'
+import React from 'react';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import DataHandler from './DataHandler';
+import { ListItem } from '@material-ui/core';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 const InfoStyles = {
     marginTop : 50,
@@ -28,7 +29,7 @@ class InfoImport extends React.Component {
         this.state = {
             data : new DataHandler(),
             txtArr : [],
-            showListItems : []
+            showListItems : [],
         };
     }
 
@@ -44,6 +45,7 @@ class InfoImport extends React.Component {
         将组件的this传进去，obj为该组件的this
         @param 
         {object} obj this指针
+        {function} callback 回调函数，触发重新渲染
     */
     fileSelectHandler(obj) {
         const txtFile = document.getElementById("selectTXT").files[0];
@@ -62,22 +64,21 @@ class InfoImport extends React.Component {
                     obj.state.data.cutLine(event.target.result.split("\n"));
                     obj.setState({
                         showListItems : this.state.data.lineInfo.map(line => {
-                            return (<ListItem key={line[0]} value={line[1]}>{line[0]} 一共有 {line[1]} 站</ListItem>);
+                            return (<ListItem key={line[0]} value={line[1]}>{line[0]} 一共有 {line[1]} 站
+                            </ListItem>);
                         })
                     });
-                    // 这里强行重新渲染来保证同步....
-                    obj.forceUpdate();
                 }
             );
         };
-        
+
     }
 
     render() {
         return (
             
             <div>
-                <Button variant="contained" color="primary" onClick={this.txtSubmit}>
+                <Button variant="contained" color="primary" onClick={this.txtSubmit} startIcon={<CloudUploadIcon />}>
                     导入地铁数据
                 </Button>
 
@@ -89,7 +90,7 @@ class InfoImport extends React.Component {
                  <input id="selectTXT" type="file" hidden onChange={() => this.fileSelectHandler(this)} accept=".txt" />
 
                 <ul>
-                    {console.log(this.state.data.lineInfo)}
+                    {console.log(this.state.data)}
                     {
                         this.state.showListItems
                     }
