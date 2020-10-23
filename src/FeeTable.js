@@ -11,6 +11,7 @@ import DirectionsRailwayIcon from '@material-ui/icons/DirectionsRailway';
 import IconButton from '@material-ui/core/IconButton';
 import DirectionsIcon from '@material-ui/icons/Directions';
 import {Dijkstra} from './DataHandler';
+import { Container } from '@material-ui/core';
 
 
 class FeeTable extends React.Component{
@@ -34,7 +35,9 @@ class FeeTable extends React.Component{
     
     */
     clickHandler(obj) {
-        console.log(Dijkstra(obj.state.start, obj.state.end, obj.state.adjList));
+        obj.setState({
+            distance :  Dijkstra(obj.state.start, obj.state.end, obj.state.adjList)
+        });
     }
     
 
@@ -70,6 +73,10 @@ class FeeTable extends React.Component{
                 <IconButton aria-label="go" color="primary" onClick={() => this.clickHandler(this)}>
                     <DirectionsIcon />
                 </IconButton>
+
+                <Container spacing={10}>
+                    {this.state.start} 到 {this.state.end} 的距离为 {this.state.distance} KM
+                </Container>
             </div>
        );
     }

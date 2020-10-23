@@ -103,7 +103,7 @@ function Dijkstra(start, end, adjList) {
 
     /* 找到终点站再退出 */
     while(1) {
-        console.log(arrived);
+        // console.log(arrived);
         let min = [undefined, Infinity];
         let selectNode = undefined;
         /* 用in循环，对站点进行遍历 */
@@ -111,16 +111,18 @@ function Dijkstra(start, end, adjList) {
             /* 选出可达中最小且没有到达过的 */
             if (arrived.indexOf(key) === -1 && dijList[key] < min[1]) {
                 selectNode = key;
-                for (let edge of adjList[key]) {
-                    /* 如果距离变小了 */
-                    if (dijList[edge.from] + edge.distance < dijList[edge.to]) {
-                        dijList[edge.to] = dijList[edge.from] + edge.distance;
-                    }
-                }
+            }
+        }
+
+        /* 更新距离信息 */
+        for (let edge of adjList[selectNode]) {
+            /* 如果距离变小了 */
+            if (dijList[edge.from] + edge.distance < dijList[edge.to]) {
+                dijList[edge.to] = dijList[edge.from] + edge.distance;
             }
         }
         arrived.push(selectNode);
-        console.log(selectNode);
+        // console.log(selectNode);
         if (selectNode === end) break;
     }
 
