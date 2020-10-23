@@ -29,7 +29,8 @@ class FeeTable extends React.Component{
             start : undefined,
             end : undefined,
             adjList : props.data.adjList,
-            distance : 0
+            distance : 0,
+            shortestPath : ""
         }
     }
     
@@ -38,8 +39,20 @@ class FeeTable extends React.Component{
     
     */
     clickHandler(obj) {
+        let algorithmInfo = Dijkstra(obj.state.start, obj.state.end, obj.state.adjList);
         obj.setState({
-            distance :  Dijkstra(obj.state.start, obj.state.end, obj.state.adjList)
+            distance :  algorithmInfo[0],
+        });
+        /* 把路径变成字符串 */
+        let path = "";
+        for (let i = 0; i < algorithmInfo[1].length; i++) {
+            path += algorithmInfo[1][i];
+            if (i < algorithmInfo[1].length - 1) {
+                path += " -> ";
+            }
+        }
+        obj.setState({
+            shortestPath : path
         });
     }
     
@@ -79,6 +92,10 @@ class FeeTable extends React.Component{
 
                 <Container spacing={10}>
                     {this.state.start} 到 {this.state.end} 的距离为 {this.state.distance.toFixed(3)} KM
+                </Container>
+
+                <Container>
+                    最短路径为 {this.state.shortestPath}
                 </Container>
             </div>
        );

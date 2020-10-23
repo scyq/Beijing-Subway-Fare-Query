@@ -13,12 +13,10 @@ class Station {
         @param
         {string} name 站点名称
         {Array{string}} onLine 在几号线上
-        {number} id 线路id
     */
-    constructor(name, id) {
+    constructor(name) {
         this.name = name;
         this.onLine = new Set();
-        this.id = id;
     }
 }
 
@@ -78,55 +76,73 @@ class Edge {
     {string} end 终点站
     {Dict} adjList 邻接表
     @return 
-    {number} res 最短距离
+    {Array} res 长度为2的数组，0存最短距离，1存最短路径
 */
 function Dijkstra(start, end, adjList) {
     if (!adjList.hasOwnProperty(start) || !adjList.hasOwnProperty(end)) return -1;
     let arrived = [start];  /* 到达过的点 */
 
-    /* 初始化可达信息 */
+    /* 路径规划，用于存放每个站点的前驱节点*/
+    let prev = {
+
+    };
+
+    /* 初始化可达信息 Station : distance */
     let dijList = {
         
     };
 
-    /* 开始全部是无限 */
+    /* 初始化，可达距离最初为无限，所有的前驱节点都是undefined */
     for (let station of Object.keys(adjList)) {
         dijList[station] = Infinity;    
+        prev[station] = undefined;
     }
 
+    prev[start] = start;   /* 自己到自己是最短 */
     dijList[start] = 0;    /* 自己到自己是0 */
 
+    /* 用start的邻接表初始化信息 */
     for (let edge of adjList[start]) {
         let toStation = edge.to;
         dijList[toStation] = edge.distance;     /* 可达距离 */
+        prev[toStation] = start;                /* 更新前驱节点 */
     }
 
     /* 找到终点站再退出 */
     while(1) {
-        // console.log(arrived);
-        let min = [undefined, Infinity];
-        let selectNode = undefined;
+        let min = Infinity;
+        let selectNode = undefined; /* 这次循环将找到的最短节点 */
         /* 用in循环，对站点进行遍历 */
         for (let key in dijList) {
             /* 选出可达中最小且没有到达过的 */
-            if (arrived.indexOf(key) === -1 && dijList[key] < min[1]) {
+            if (arrived.indexOf(key) === -1 && dijList[key] < min) {
                 selectNode = key;
+                min = dijList[key];
             }
         }
 
         /* 更新距离信息 */
         for (let edge of adjList[selectNode]) {
-            /* 如果距离变小了 */
-            if (dijList[edge.from] + edge.distance < dijList[edge.to]) {
+            /* 如果距离和小于原本的距离 */
+            if (dijList[selectNode] + edge.distance < dijList[edge.to]) {
                 dijList[edge.to] = dijList[edge.from] + edge.distance;
+                prev[edge.to] = selectNode;
             }
         }
-        arrived.push(selectNode);
-        // console.log(selectNode);
+        arrived.push(selectNode); 
         if (selectNode === end) break;
     }
 
-    return dijList[end];
+    /* 折腾路径 */
+    let resPath = [end];
+    let currentNode = prev[end];
+    while(currentNode !== start) {
+        resPath.push(currentNode);
+        currentNode = prev[currentNode];
+    } 
+    resPath.push(start);
+
+    return [dijList[end], resPath.reverse()];
 }
 
 
@@ -148,7 +164,6 @@ class DataHandler{
         this.allLine = [];
         this.lineInfo = [];
         this.adjList = {};
-        this.maxId = 0;
     }
 
     /*
@@ -180,9 +195,8 @@ class DataHandler{
                     this.StationController[stationName].onLine.add(lineName);
                 } 
                 else {  /* 如果这是没有遍历过的点 */
-                    this.StationController[stationName] = new Station(stationName, this.maxId);
+                    this.StationController[stationName] = new Station(stationName);
                     this.StationController[stationName].onLine.add(lineName);
-                    this.maxId++;   /* 更新最大id */
                 }
 
                 /* 建立邻接表 */
