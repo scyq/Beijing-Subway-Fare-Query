@@ -20,13 +20,16 @@ class FeeTable extends React.Component{
         @constructor
         {string} start 始发站
         {string} end 终点站
+        {Dict} adjList 图的邻接表
+        {number} distance 最终显示距离 
     */
     constructor(props) {
         super(props);
         this.state = {
             start : undefined,
             end : undefined,
-            adjList : props.data.adjList
+            adjList : props.data.adjList,
+            distance : 0
         }
     }
     
@@ -75,7 +78,7 @@ class FeeTable extends React.Component{
                 </IconButton>
 
                 <Container spacing={10}>
-                    {this.state.start} 到 {this.state.end} 的距离为 {this.state.distance} KM
+                    {this.state.start} 到 {this.state.end} 的距离为 {this.state.distance.toFixed(3)} KM
                 </Container>
             </div>
        );
