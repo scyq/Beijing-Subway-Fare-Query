@@ -76,7 +76,7 @@ class Edge {
     {string} end 终点站
     {Dict} adjList 邻接表
     @return 
-    {Array} res 长度为2的数组，0存最短距离，1存最短路径
+    {Array} res 长度为3的数组，0存最短距离，1存最短路径，2是费用
 */
 function Dijkstra(start, end, adjList) {
     if (!adjList.hasOwnProperty(start) || !adjList.hasOwnProperty(end)) return -1;
@@ -142,7 +142,18 @@ function Dijkstra(start, end, adjList) {
     } 
     resPath.push(start);
 
-    return [dijList[end], resPath.reverse()];
+    /* 计算费用 */
+    let shortestDis = dijList[end];
+    let fee = 0;
+    if (shortestDis < 6) fee = 3;
+    else if (shortestDis < 12) fee = 4;
+    else if (shortestDis < 22) fee = 5;
+    else if (shortestDis < 32) fee = 6;
+    else if (shortestDis < 52) fee = 7;
+    else if (shortestDis < 72) fee = 8;
+    else fee = 9;
+    
+    return [dijList[end], resPath.reverse(), fee];
 }
 
 

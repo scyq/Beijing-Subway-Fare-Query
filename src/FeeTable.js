@@ -30,7 +30,8 @@ class FeeTable extends React.Component{
             end : undefined,
             adjList : props.data.adjList,
             shortestPath : "",
-            output : ""
+            output : "",
+            fee : 0
         }
     }
     
@@ -58,7 +59,8 @@ class FeeTable extends React.Component{
             let output = obj.state.start + "到" + obj.state.end + "的距离为" + distance.toFixed(3) + "KM";
             this.setState({
                 output : output,
-                shortestPath : path
+                shortestPath : path,
+                fee : algorithmInfo[2]
             });
         }
 
@@ -104,6 +106,10 @@ class FeeTable extends React.Component{
 
                 <Container>
                     最短路径为 {this.state.shortestPath}
+                </Container>
+
+                <Container spacing={10}>
+                    本线路地铁费用为 {this.state.fee} 元
                 </Container>
             </div>
        );
