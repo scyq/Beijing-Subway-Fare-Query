@@ -29,8 +29,8 @@ class FeeTable extends React.Component{
             start : undefined,
             end : undefined,
             adjList : props.data.adjList,
-            distance : 0,
-            shortestPath : ""
+            shortestPath : "",
+            output : ""
         }
     }
     
@@ -40,20 +40,28 @@ class FeeTable extends React.Component{
     */
     clickHandler(obj) {
         let algorithmInfo = Dijkstra(obj.state.start, obj.state.end, obj.state.adjList);
-        obj.setState({
-            distance :  algorithmInfo[0],
-        });
-        /* 把路径变成字符串 */
-        let path = "";
-        for (let i = 0; i < algorithmInfo[1].length; i++) {
-            path += algorithmInfo[1][i];
-            if (i < algorithmInfo[1].length - 1) {
-                path += " -> ";
-            }
+        if (algorithmInfo === -1) {      /* 输入有误 */
+            obj.setState({
+                output : "没有查询到对应站点"
+            });
         }
-        obj.setState({
-            shortestPath : path
-        });
+        else {
+            let distance = algorithmInfo[0];
+            /* 把路径变成字符串 */
+            let path = "";
+            for (let i = 0; i < algorithmInfo[1].length; i++) {
+                path += algorithmInfo[1][i];
+                if (i < algorithmInfo[1].length - 1) {
+                    path += " -> ";
+                }
+            }
+            let output = obj.state.start + "到" + obj.state.end + "的距离为" + distance.toFixed(3) + "KM";
+            this.setState({
+                output : output,
+                shortestPath : path
+            });
+        }
+
     }
     
 
@@ -91,7 +99,7 @@ class FeeTable extends React.Component{
                 </IconButton>
 
                 <Container spacing={10}>
-                    {this.state.start} 到 {this.state.end} 的距离为 {this.state.distance.toFixed(3)} KM
+                    {this.state.output}
                 </Container>
 
                 <Container>
