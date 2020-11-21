@@ -59,6 +59,7 @@ class InfoImport extends React.Component {
                     obj.state.data.cutLine(event.target.result.split("\n"));
                 }
             );
+            this.props.setDataLoaded(true);
             obj.forceUpdate();  /* 强制重新渲染 */
         };
     }

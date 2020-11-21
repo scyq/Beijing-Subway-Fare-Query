@@ -122,6 +122,9 @@ export default function App() {
   /* 记录、保存数据的类，保证不会被回收 */
   const [data] = React.useState(new DataHandler());
 
+  /* 数据是否加载完成 */
+  const [dataLoaded, setDataLoaded] = React.useState(false);
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -170,6 +173,7 @@ export default function App() {
           <List> 
             <NavBar 
               setShowIndex = {setShowIndex}
+              dataLoaded = {dataLoaded}
             />
           </List>
         <Divider />
@@ -182,6 +186,7 @@ export default function App() {
           <Content 
             showIndex = {showIndex}
             data = {data}
+            setDataLoaded = {setDataLoaded}
           />
 
           <Box pt={4}>

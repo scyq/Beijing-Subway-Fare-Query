@@ -17,6 +17,7 @@ class Content extends React.Component {
             return (
                 <InfoImport 
                     data = {this.props.data}
+                    setDataLoaded = {this.props.setDataLoaded}
                 />
             );
         }

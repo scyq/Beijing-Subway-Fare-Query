@@ -51,6 +51,7 @@ class NavBar extends React.Component {
                 <ListItem 
                     button
                     onClick = {() => this.clickHandler(1)}
+                    disabled = {!this.props.dataLoaded}
                 >
                 <ListItemIcon>
                     <BarChartIcon />
@@ -60,6 +61,7 @@ class NavBar extends React.Component {
                 <ListItem 
                     button
                     onClick = {() => this.clickHandler(2)}
+                    disabled = {!this.props.dataLoaded}
                 >
                 <ListItemIcon>
                     <PeopleIcon />
