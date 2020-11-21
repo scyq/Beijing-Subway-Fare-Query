@@ -108,18 +108,22 @@ function Dijkstra(start, end, adjList) {
         prev[toStation] = start;                /* 更新前驱节点 */
     }
 
-    /* 找到终点站再退出 */
+    /* 更新完所有站点再退出 */
     while(1) {
         let min = Infinity;
         let selectNode = undefined; /* 这次循环将找到的最短节点 */
+
+        let findTheShortest = false;    /* 如果找不到最小节点，直接break */
         /* 用in循环，对站点进行遍历 */
         for (let key in dijList) {
             /* 选出可达中最小且没有到达过的 */
             if (arrived.indexOf(key) === -1 && dijList[key] < min) {
                 selectNode = key;
                 min = dijList[key];
+                findTheShortest = true;
             }
         }
+        if (!findTheShortest) break;
 
         /* 更新距离信息 */
         for (let edge of adjList[selectNode]) {
@@ -130,8 +134,9 @@ function Dijkstra(start, end, adjList) {
             }
         }
         arrived.push(selectNode); 
-        if (selectNode === end) break;
+        // if (selectNode === end) break;
     }
+    // console.log(dijList);
 
     /* 折腾路径 */
     let resPath = [end];
