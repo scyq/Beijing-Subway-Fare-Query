@@ -12,6 +12,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DirectionsIcon from '@material-ui/icons/Directions';
 import { Dijkstra } from './DataHandler';
 import { Container } from '@material-ui/core';
+import StickyHeadTable from './theTable';
 
 
 class FeeTable extends React.Component {
@@ -25,6 +26,7 @@ class FeeTable extends React.Component {
         {string} output 需要输出的提示语
         {number} fee 地铁所需的费用
         {bool} checked 是否提出查询请求，没提出之前提示语不一样
+        {Array} tableRows 表格渲染的每一行
     */
     constructor(props) {
         super(props);
@@ -35,10 +37,12 @@ class FeeTable extends React.Component {
             shortestPath: "",
             output: "",
             fee: 0,
-            checked: false
+            checked: false,
+            tableRows : []
         }
     }
 
+    /* 根据是否点击来渲染不同的内容，点击前是提示，点击后是结果 */
     contentSelector(obj) {
         if (obj.state.checked) {
             return (
@@ -54,6 +58,10 @@ class FeeTable extends React.Component {
                     <Container spacing={10}>
                         本线路地铁费用为 {this.state.fee} 元
                     </Container>
+
+                    <StickyHeadTable tableRows={obj.state.tableRows}>
+
+                    </StickyHeadTable>
                 </div>
             );
         }
@@ -94,7 +102,8 @@ class FeeTable extends React.Component {
             this.setState({
                 output: output,
                 shortestPath: path,
-                fee: algorithmInfo[2]
+                fee: algorithmInfo[2],
+                tableRows: algorithmInfo[3]
             });
         }
 

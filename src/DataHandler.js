@@ -67,6 +67,22 @@ class Edge {
 
 }
 
+/* 创建表格行内容 */
+function createRow(start, end, distance, fee) {
+    return { start, end, distance, fee }
+}
+
+/* 计算地铁乘车费用 */
+function getFee(distance) {
+    if (distance < 6) return 3;
+    else if (distance < 12) return 4;
+    else if (distance < 22) return 5;
+    else if (distance < 32) return 6;
+    else if (distance < 52) return 7;
+    else if (distance < 72) return 8;
+    else return 9;
+}
+
 /*
     Dijkstra 算法
     @static function Dijkstra
@@ -76,11 +92,12 @@ class Edge {
     {string} end 终点站
     {Dict} adjList 邻接表
     @return 
-    {Array} res 长度为3的数组，0存最短距离，1存最短路径，2是费用
+    {Array} res 长度为4的数组，0存最短距离，1存最短路径，2是费用, 3是表格的行信息
 */
 function Dijkstra(start, end, adjList) {
     if (!adjList.hasOwnProperty(start) || !adjList.hasOwnProperty(end)) return -1;
     let arrived = [start];  /* 到达过的点 */
+    let rows = []   /* 未来表格需要渲染的内容 */
 
     /* 路径规划，用于存放每个站点的前驱节点*/
     let prev = {
@@ -89,12 +106,12 @@ function Dijkstra(start, end, adjList) {
 
     /* 初始化可达信息 Station : distance */
     let dijList = {
-        
+
     };
 
     /* 初始化，可达距离最初为无限，所有的前驱节点都是undefined */
     for (let station of Object.keys(adjList)) {
-        dijList[station] = Infinity;    
+        dijList[station] = Infinity;
         prev[station] = undefined;
     }
 
@@ -109,7 +126,7 @@ function Dijkstra(start, end, adjList) {
     }
 
     /* 更新完所有站点再退出 */
-    while(1) {
+    while (1) {
         let min = Infinity;
         let selectNode = undefined; /* 这次循环将找到的最短节点 */
 
@@ -133,36 +150,29 @@ function Dijkstra(start, end, adjList) {
                 prev[edge.to] = selectNode;
             }
         }
-        arrived.push(selectNode); 
-        // if (selectNode === end) break;
+        arrived.push(selectNode);
+        rows.push(createRow(start, selectNode, dijList[selectNode].toFixed(3), getFee(dijList[selectNode])));
     }
     // console.log(dijList);
 
     /* 折腾路径 */
     let resPath = [end];
     let currentNode = prev[end];
-    while(currentNode !== start) {
+    while (currentNode !== start) {
         resPath.push(currentNode);
         currentNode = prev[currentNode];
-    } 
+    }
     resPath.push(start);
 
     /* 计算费用 */
     let shortestDis = dijList[end];
-    let fee = 0;
-    if (shortestDis < 6) fee = 3;
-    else if (shortestDis < 12) fee = 4;
-    else if (shortestDis < 22) fee = 5;
-    else if (shortestDis < 32) fee = 6;
-    else if (shortestDis < 52) fee = 7;
-    else if (shortestDis < 72) fee = 8;
-    else fee = 9;
-    
-    return [dijList[end], resPath.reverse(), fee];
+    let fee = getFee(shortestDis);
+
+    return [dijList[end], resPath.reverse(), fee, rows];
 }
 
 
-class DataHandler{
+class DataHandler {
 
     /*
         @constructor
@@ -194,22 +204,22 @@ class DataHandler{
         if (arguments.length < 2) real_spliter = "，";
         else real_spliter = spliter;
         var linesCounts = txtArr[0];
-        for (var i = 1; i <= linesCounts; i++){
+        for (var i = 1; i <= linesCounts; i++) {
             var tempLine = txtArr[i].split(real_spliter);
             this.allLine.push(tempLine);                         /* 添加线路信息 */
             var lineStationCnts = parseInt(tempLine[2]);         /* 地铁线路总站数 */
             var lineName = tempLine[1];                          /* 地铁线路名称 {string} */
             this.lineInfo.push([lineName, lineStationCnts]);     /* 线路信息，站点名称-站点数量 */
             /* 对于每一条线，遍历每个站 */
-            for (var j = 3; j < tempLine.length; j+=2) {
+            for (var j = 3; j < tempLine.length; j += 2) {
                 // 名字必须要去掉 \r 等回车换行符
-                var stationName = tempLine[j].replace(/[\r\n]/g,"");
+                var stationName = tempLine[j].replace(/[\r\n]/g, "");
                 var nextStationName = undefined;    /* 下一站的名称 */
-                if (j !== (tempLine.length - 1)) nextStationName = tempLine[j + 2].replace(/[\r\n]/g,"");    /* 如果不是最后一站，则建立和下一站的边 */
+                if (j !== (tempLine.length - 1)) nextStationName = tempLine[j + 2].replace(/[\r\n]/g, "");    /* 如果不是最后一站，则建立和下一站的边 */
 
-                if (this.StationController.hasOwnProperty(stationName)) {           /* 已经遍历过的站 */          
+                if (this.StationController.hasOwnProperty(stationName)) {           /* 已经遍历过的站 */
                     this.StationController[stationName].onLine.add(lineName);
-                } 
+                }
                 else {  /* 如果这是没有遍历过的点 */
                     this.StationController[stationName] = new Station(stationName);
                     this.StationController[stationName].onLine.add(lineName);
@@ -217,7 +227,7 @@ class DataHandler{
 
                 /* 建立邻接表 */
                 if (nextStationName) {
-                    Edge.createDoubleEdge(this, stationName, nextStationName, parseFloat(tempLine[j+1]));
+                    Edge.createDoubleEdge(this, stationName, nextStationName, parseFloat(tempLine[j + 1]));
                 }
 
             }
@@ -227,5 +237,5 @@ class DataHandler{
 };
 
 export default DataHandler;
-export {Station};
-export {Dijkstra};
+export { Station };
+export { Dijkstra };
