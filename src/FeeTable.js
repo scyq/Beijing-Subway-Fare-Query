@@ -10,40 +10,74 @@ import DirectionsSubwayIcon from '@material-ui/icons/DirectionsSubway';
 import DirectionsRailwayIcon from '@material-ui/icons/DirectionsRailway';
 import IconButton from '@material-ui/core/IconButton';
 import DirectionsIcon from '@material-ui/icons/Directions';
-import {Dijkstra} from './DataHandler';
+import { Dijkstra } from './DataHandler';
 import { Container } from '@material-ui/core';
 
 
-class FeeTable extends React.Component{
+class FeeTable extends React.Component {
 
     /* 
         @constructor
         {string} start 始发站
         {string} end 终点站
         {Dict} adjList 图的邻接表
-        {number} distance 最终显示距离 
+        {string} shortestPath 最短路径
+        {string} output 需要输出的提示语
+        {number} fee 地铁所需的费用
+        {bool} checked 是否提出查询请求，没提出之前提示语不一样
     */
     constructor(props) {
         super(props);
         this.state = {
-            start : undefined,
-            end : undefined,
-            adjList : props.data.adjList,
-            shortestPath : "",
-            output : "",
-            fee : 0
+            start: undefined,
+            end: undefined,
+            adjList: props.data.adjList,
+            shortestPath: "",
+            output: "",
+            fee: 0,
+            checked: false
         }
     }
-    
+
+    contentSelector(obj) {
+        if (obj.state.checked) {
+            return (
+                <div>
+                    <Container spacing={10}>
+                        {this.state.output}
+                    </Container>
+
+                    <Container>
+                        最短路径为 {this.state.shortestPath}
+                    </Container>
+
+                    <Container spacing={10}>
+                        本线路地铁费用为 {this.state.fee} 元
+                    </Container>
+                </div>
+            );
+        }
+        else {
+            return (
+                <Container>
+                    请输入起点站和终点站，点击蓝色按钮进行查询。
+                </Container>
+            )
+        }
+    }
+
 
     /* 
     
     */
     clickHandler(obj) {
+        obj.setState({
+            checked: true
+        });
         let algorithmInfo = Dijkstra(obj.state.start, obj.state.end, obj.state.adjList);
         if (algorithmInfo === -1) {      /* 输入有误 */
             obj.setState({
-                output : "没有查询到对应站点"
+                output: "没有查询到对应站点"
             });
         }
         else {
@@ -58,28 +92,28 @@ class FeeTable extends React.Component{
             }
             let output = obj.state.start + "到" + obj.state.end + "的距离为" + distance.toFixed(3) + "KM";
             this.setState({
-                output : output,
-                shortestPath : path,
-                fee : algorithmInfo[2]
+                output: output,
+                shortestPath: path,
+                fee: algorithmInfo[2]
             });
         }
 
     }
-    
+
 
     render() {
-       return (
+        return (
             <div>
                 <Grid container spacing={1} alignItems="flex-end">
                     <Grid item>
                         <DirectionsSubwayIcon />
                     </Grid>
                     <Grid item>
-                        <TextField id="start" label="始发站" onChange={(e)=>{
+                        <TextField id="start" label="始发站" onChange={(e) => {
                             this.setState({
-                                start : e.target.value
+                                start: e.target.value
                             });
-                        }}/>
+                        }} />
                     </Grid>
                 </Grid>
 
@@ -90,9 +124,9 @@ class FeeTable extends React.Component{
                     <Grid item>
                         <TextField id="end" label="终点站" onChange={(e) => {
                             this.setState({
-                                end : e.target.value
+                                end: e.target.value
                             });
-                        }}/>
+                        }} />
                     </Grid>
                 </Grid>
 
@@ -100,19 +134,9 @@ class FeeTable extends React.Component{
                     <DirectionsIcon />
                 </IconButton>
 
-                <Container spacing={10}>
-                    {this.state.output}
-                </Container>
-
-                <Container>
-                    最短路径为 {this.state.shortestPath}
-                </Container>
-
-                <Container spacing={10}>
-                    本线路地铁费用为 {this.state.fee} 元
-                </Container>
+                {this.contentSelector(this)}
             </div>
-       );
+        );
     }
 }
 
