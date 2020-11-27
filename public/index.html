@@ -25,9 +25,11 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Beijing Subway Fare Query</title>
+    <script type="text/javascript" src="https://api.map.baidu.com/api?type=subway&v=1.0&ak=jd76u90LjZaFuNlqbwd87nSA5Ve1r5C4">
+      window.BMapSub = BapSub;
+    </script>
   </head>
   <body>
-    <script src="https://webapi.amap.com/subway?v=1.0&amp;key=68f1c1472d190072ed261677a0ab1e88&amp;callback=cbk"></script>
     <div id="root"></div>
     <!--
       This HTML file is a template.
@@ -40,11 +42,4 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
-  <script type="text/javascript">
-    window.cbk = function(){
-        var mysubway = subway("map", {
-            easy: 1
-        });
-    };
-  </script>
 </html>
