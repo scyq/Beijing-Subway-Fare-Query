@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/Beijing-Subway-Fare-Query/static/css/main.5ecd60fb.chunk.css",
+    "main.js": "/Beijing-Subway-Fare-Query/static/js/main.35785727.chunk.js",
+    "main.js.map": "/Beijing-Subway-Fare-Query/static/js/main.35785727.chunk.js.map",
+    "runtime-main.js": "/Beijing-Subway-Fare-Query/static/js/runtime-main.45a9e50c.js",
+    "runtime-main.js.map": "/Beijing-Subway-Fare-Query/static/js/runtime-main.45a9e50c.js.map",
+    "static/js/2.f686dd4b.chunk.js": "/Beijing-Subway-Fare-Query/static/js/2.f686dd4b.chunk.js",
+    "static/js/2.f686dd4b.chunk.js.map": "/Beijing-Subway-Fare-Query/static/js/2.f686dd4b.chunk.js.map",
+    "index.html": "/Beijing-Subway-Fare-Query/index.html",
+    "precache-manifest.269b35adf64769d442c40ff5dffc9e4e.js": "/Beijing-Subway-Fare-Query/precache-manifest.269b35adf64769d442c40ff5dffc9e4e.js",
+    "service-worker.js": "/Beijing-Subway-Fare-Query/service-worker.js",
+    "static/css/main.5ecd60fb.chunk.css.map": "/Beijing-Subway-Fare-Query/static/css/main.5ecd60fb.chunk.css.map",
+    "static/js/2.f686dd4b.chunk.js.LICENSE.txt": "/Beijing-Subway-Fare-Query/static/js/2.f686dd4b.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.45a9e50c.js",
+    "static/js/2.f686dd4b.chunk.js",
+    "static/css/main.5ecd60fb.chunk.css",
+    "static/js/main.35785727.chunk.js"
+  ]
+}
