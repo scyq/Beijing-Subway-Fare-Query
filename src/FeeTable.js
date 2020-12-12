@@ -48,15 +48,15 @@ class FeeTable extends React.Component {
             return (
                 <div>
                     <Container spacing={10}>
-                        {this.state.output}
+                        {obj.state.output}
                     </Container>
 
                     <Container>
-                        最短路径为 {this.state.shortestPath}
+                        最短路径为 {obj.state.shortestPath}
                     </Container>
 
                     <Container spacing={10}>
-                        本线路地铁费用为 {this.state.fee} 元
+                        本线路地铁费用为 {obj.state.fee} 元
                     </Container>
 
                     <StickyHeadTable tableRows={obj.state.tableRows}>
