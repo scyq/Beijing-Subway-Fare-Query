@@ -32,7 +32,7 @@ function Copyright() {
   );
 }
 
-const drawerWidth = 240;
+const drawerWidth = 360;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -135,6 +135,12 @@ export default function App() {
   // 当前现实的页面
   const [showIndex, setShowIndex] = React.useState(0);
 
+  /* 最短路径 */
+  const [thePath, setShortPath] = React.useState([]);
+
+  const markPath = () => {
+
+  }
 
   return (
     <div className={classes.root}>
@@ -174,6 +180,9 @@ export default function App() {
             <NavBar 
               setShowIndex = {setShowIndex}
               dataLoaded = {dataLoaded}
+              data = {data}
+              open={open}
+              setShortPath={setShortPath}
             />
           </List>
         <Divider />
@@ -187,6 +196,7 @@ export default function App() {
             showIndex = {showIndex}
             data = {data}
             setDataLoaded = {setDataLoaded}
+            thePath={thePath}
           />
 
           <Box pt={4}>

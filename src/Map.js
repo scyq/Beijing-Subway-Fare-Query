@@ -11,9 +11,16 @@ function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-export default function Map() {
+export default function Map(props) {
     const [open, setOpen] = React.useState(false);
     const [loaded, setLoaded] = React.useState(false);
+
+    let startIcon = null;
+    let endIcon = null;
+    let marker = null;
+    let subway = null;
+    let BMapSub = window.BMapSub;
+    let BMAPSUB_ANCHOR_BOTTOM_RIGHT = window.zoomBtn;
 
     const hintClose = (event, reason) => {
         setOpen(false);
@@ -36,26 +43,23 @@ export default function Map() {
         else return null;
     }
 
-    const createSubway = () => {
-        // 全局变量转为本地变量
-        let BMapSub = window.BMapSub;
-        let BMAPSUB_ANCHOR_BOTTOM_RIGHT = window.zoomBtn;
-
-        var subwayCityName = '北京';
-        var list = BMapSub.SubwayCitiesList;
-        var subwaycity = null;
+    const createSubway = (center) => {
+        let subwayCityName = '北京';
+        let list = BMapSub.SubwayCitiesList;
+        let subwaycity = null;
         for (var i = 0; i < list.length; i++) {
             if (list[i].name === subwayCityName) {
                 subwaycity = list[i];
                 break;
             }
         }
-        var subway = new BMapSub.Subway('map', subwaycity.citycode);
+        subway = new BMapSub.Subway('map', subwaycity.citycode);
         // zoom controller
-        var zoomControl = new BMapSub.ZoomControl({
+        let zoomControl = new BMapSub.ZoomControl({
             anchor: BMAPSUB_ANCHOR_BOTTOM_RIGHT,
             offset: new BMapSub.Size(10, 100)
         });
+
         subway.addControl(zoomControl);
         subway.setZoom(1);
 
@@ -64,16 +68,60 @@ export default function Map() {
             setOpen(true);
             subway.getLines();
         });
+
+        // 站点点击事件
+        subway.addEventListener('tap', (e) => {
+
+        });
+
+        startIcon = new BMapSub.Icon(
+            'https://api.map.baidu.com/images/subway/start-bak.png',
+            new BMapSub.Size(50, 80)
+        );
+
+        endIcon = new BMapSub.Icon(
+            'https://api.map.baidu.com/images/subway/end-bak.png',
+            new BMapSub.Size(50, 80)
+        );
+
+        marker = new BMapSub.Icon(
+            'https://api.map.baidu.com/images/subway/marker.png',
+            new BMapSub.Size(50, 80)
+        );
+
+        subway.setCenter(center);
+
+        if (props.path.length > 0) {
+            for (let i = 0; i < props.path.length; i++) {
+                if (i === 0) {
+                    let markerTemp = new BMapSub.Marker(props.path[i], { icon: startIcon });
+                    subway.addMarker(markerTemp);
+                }
+                else if (i === props.path.length - 1) {
+                    let markerTemp = new BMapSub.Marker(props.path[i], { icon: endIcon });
+                    subway.addMarker(markerTemp);
+                }
+                else {
+                    let markerTemp = new BMapSub.Marker(props.path[i], { icon: marker });
+                    subway.addMarker(markerTemp);
+                }
+            }
+        }
+    }
+
+    const mark = () => {
+        createSubway(props.path[0]);
     }
 
     // useEffect is componentDidMount in function 
     React.useEffect(() => {
         if (!loaded)
-            createSubway();
+            createSubway('天安门东');
     });
 
     return (
         <div>
+            {props.path.length > 0 && mark()}
             {loadHint()}
             <div id="map" style={{ height: "80vh" }}>
             </div>

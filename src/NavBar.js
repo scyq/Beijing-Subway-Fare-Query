@@ -12,7 +12,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
-
+import Search from './Search';
 
 class NavBar extends React.Component {
 
@@ -21,7 +21,7 @@ class NavBar extends React.Component {
 
         // itemIdex 代表不同标签页
         this.state = {
-            itemIdex : 0
+            itemIdex: 0
         };
     }
 
@@ -31,7 +31,7 @@ class NavBar extends React.Component {
 
     /* 处理点击，改变状态以显示不同内容 */
     clickHandler = (index) => {
-        this.setState({itemIdex : index});
+        this.setState({ itemIdex: index });
         // 改变父组件的index值
         this.props.setShowIndex(index);
     }
@@ -39,35 +39,40 @@ class NavBar extends React.Component {
     render() {
         return (
             <div>
-                <ListItem 
+                <ListItem
                     button
-                    onClick = {() => this.clickHandler(0)}
+                    onClick={() => this.clickHandler(0)}
                 >
-                <ListItemIcon>
-                    <LayersIcon />
-                </ListItemIcon>
-                <ListItemText primary="地铁信息导入" />
+                    <ListItemIcon>
+                        <LayersIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="地铁信息导入" />
                 </ListItem>
-                <ListItem 
+                <ListItem
                     button
-                    onClick = {() => this.clickHandler(1)}
-                    disabled = {!this.props.dataLoaded}
+                    onClick={() => this.clickHandler(2)}
+                    disabled={!this.props.dataLoaded}
                 >
-                <ListItemIcon>
-                    <BarChartIcon />
-                </ListItemIcon>
-                <ListItemText primary="地铁费用表" />
+                    <ListItemIcon>
+                        <PeopleIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="交互查询界面" />
                 </ListItem>
-                <ListItem 
-                    button
-                    onClick = {() => this.clickHandler(2)}
-                    disabled = {!this.props.dataLoaded}
-                >
-                <ListItemIcon>
-                    <PeopleIcon />
-                </ListItemIcon>
-                <ListItemText primary="交互查询界面" />
-                </ListItem>
+
+                {
+                    this.props.dataLoaded &&
+                    this.state.itemIdex !== 0 &&
+                    <ListItem>
+                        <Search
+                            data={this.props.data}
+                            open={this.props.open}
+                            setShortPath={this.props.setShortPath}
+                        >
+
+                        </Search>
+                    </ListItem>
+                }
+
             </div>
         );
     }

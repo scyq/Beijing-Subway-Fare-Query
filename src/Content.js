@@ -7,8 +7,6 @@
 import React from 'react';
 import InfoImport from './InfoImport';
 import Map from './Map';
-import FeeTable from './FeeTable';
-
 
 class Content extends React.Component {
 
@@ -21,17 +19,11 @@ class Content extends React.Component {
                 />
             );
         }
-        else if (this.props.showIndex === 1) {
-            return (
-                <FeeTable 
-                    data = {this.props.data}
-                />
-            );
-        }
         else {
             return (
                 <Map 
                     data = {this.props.data}
+                    path = {this.props.thePath}
                 />
             );
         }

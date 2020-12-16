@@ -28,7 +28,8 @@ const columns = [
 
 const useStyles = makeStyles({
   root: {
-    width: '70%',
+    width: '50%',
+    zIndex: 99
   },
   container: {
     maxHeight: 500,
