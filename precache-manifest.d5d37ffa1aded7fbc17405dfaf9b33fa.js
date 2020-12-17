@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "4cb70d1797a0c37473e01714a209420b",
+    "revision": "57475529edf9eb785637ac29be1e054c",
     "url": "/Beijing-Subway-Fare-Query/index.html"
   },
   {
