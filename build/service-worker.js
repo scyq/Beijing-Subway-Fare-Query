@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Beijing-Subway-Fare-Query/precache-manifest.cef4a7d7a269d564362c0cc17a1713cc.js"
+  "/Beijing-Subway-Fare-Query/precache-manifest.d5d37ffa1aded7fbc17405dfaf9b33fa.js"
 );
 
 self.addEventListener('message', (event) => {
