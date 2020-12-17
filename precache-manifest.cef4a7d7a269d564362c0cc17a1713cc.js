@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "00c78d729830e752934fb2253f5ac400",
+    "revision": "4cb70d1797a0c37473e01714a209420b",
     "url": "/Beijing-Subway-Fare-Query/index.html"
   },
   {
-    "revision": "53028ecf47e070bbbb90",
+    "revision": "92f82c66a2a2dade60a7",
     "url": "/Beijing-Subway-Fare-Query/static/css/main.5ecd60fb.chunk.css"
   },
   {
-    "revision": "6d1e09fc90440643303c",
-    "url": "/Beijing-Subway-Fare-Query/static/js/2.3e556fb6.chunk.js"
+    "revision": "ce102e74a67a4c79f74e",
+    "url": "/Beijing-Subway-Fare-Query/static/js/2.c29752c1.chunk.js"
   },
   {
     "revision": "0749163b59fbee32225059cb60c18af6",
-    "url": "/Beijing-Subway-Fare-Query/static/js/2.3e556fb6.chunk.js.LICENSE.txt"
+    "url": "/Beijing-Subway-Fare-Query/static/js/2.c29752c1.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "53028ecf47e070bbbb90",
-    "url": "/Beijing-Subway-Fare-Query/static/js/main.b605a790.chunk.js"
+    "revision": "92f82c66a2a2dade60a7",
+    "url": "/Beijing-Subway-Fare-Query/static/js/main.855a0b3b.chunk.js"
   },
   {
     "revision": "fb14c3e4c4d3c7893456",
