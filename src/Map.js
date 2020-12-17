@@ -33,7 +33,7 @@ export default function Map(props) {
                 <div>
                     <Snackbar open={open} autoHideDuration={6000} onClose={hintClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
                         <Alert onClose={hintClose} severity="warning">
-                            暂时不支持16号线、八通线、房山线、昌平线、亦庄线、机场线。
+                            暂时不支持西郊线、16号线、S1线、燕房线、新机场线。
                         </Alert>
                     </Snackbar>
                 </div>

@@ -98,7 +98,7 @@ export default function Search(props) {
                         {output}
                     </Container>
 
-                    <Container style={{ color: 'White', fontSize: '18px', fontWeight: 'Bold' }} >
+                    <Container style={{ color: 'White', fontSize: '18px', fontWeight: 'Bold', overflow: 'auto' }} >
                         最短路径为 {shortestPath}
                     </Container>
 

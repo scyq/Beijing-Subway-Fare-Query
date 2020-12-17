@@ -138,9 +138,6 @@ export default function App() {
   /* 最短路径 */
   const [thePath, setShortPath] = React.useState([]);
 
-  const markPath = () => {
-
-  }
 
   return (
     <div className={classes.root}>
