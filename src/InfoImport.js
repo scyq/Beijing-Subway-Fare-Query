@@ -76,6 +76,7 @@ class InfoImport extends React.Component {
         }
     }
 
+
     render() {
         return (
             
@@ -95,6 +96,8 @@ class InfoImport extends React.Component {
                     {console.log(this.state.data)}
                     {this.renderStationList(this.state.data.lineInfo)}
                 </ul>
+
+                {this.state.data.lineInfo && '总站点数量 ' + Object.keys(this.state.data.StationController).length}
         
             </div>
         );

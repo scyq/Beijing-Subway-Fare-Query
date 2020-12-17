@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "57475529edf9eb785637ac29be1e054c",
+    "revision": "c24b5b8c71970974f77adad2b06b40fe",
     "url": "/Beijing-Subway-Fare-Query/index.html"
   },
   {
-    "revision": "92f82c66a2a2dade60a7",
+    "revision": "688e3e5be624f1fbc3c2",
     "url": "/Beijing-Subway-Fare-Query/static/css/main.5ecd60fb.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Beijing-Subway-Fare-Query/static/js/2.c29752c1.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "92f82c66a2a2dade60a7",
-    "url": "/Beijing-Subway-Fare-Query/static/js/main.855a0b3b.chunk.js"
+    "revision": "688e3e5be624f1fbc3c2",
+    "url": "/Beijing-Subway-Fare-Query/static/js/main.5db3f42a.chunk.js"
   },
   {
     "revision": "fb14c3e4c4d3c7893456",
