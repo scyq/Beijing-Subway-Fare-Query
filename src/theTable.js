@@ -21,18 +21,24 @@ const columns = [
   {
     id: 'fee',
     label: '费用（元）',
-    minWidth: 2000,
+    minWidth: 200,
     align: 'left',
+  },
+  {
+    id: 'line',
+    label: '线路',
+    minWidth: 400,
+    align: 'left'
   }
 ];
 
 const useStyles = makeStyles({
   root: {
-    width: '50%',
+    width: '80%',
     zIndex: 99
   },
   container: {
-    maxHeight: 500,
+    maxHeight: 1200,
   },
 });
 

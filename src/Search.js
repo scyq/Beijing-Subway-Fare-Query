@@ -115,7 +115,7 @@ export default function Search(props) {
 
     const clickHandler = () => {
         setCheck(true);
-        let algorithmInfo = Dijkstra(start, end, props.data.adjList);
+        let algorithmInfo = Dijkstra(start, end, props.data.adjList, props.data.allLine);
         if (algorithmInfo === -1) {      /* 输入有误 */
             setOutput("没有查询到对应站点");
             setHint(2);
@@ -136,6 +136,7 @@ export default function Search(props) {
             props.setShortPath(algorithmInfo[1]);
             setFee(algorithmInfo[2]);
             setTableRows(algorithmInfo[3]);
+            // console.log(algorithmInfo[3]);
             setHint(1);
         }
     }

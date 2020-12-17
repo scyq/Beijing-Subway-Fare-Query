@@ -68,8 +68,9 @@ class Edge {
 }
 
 /* 创建表格行内容 */
-function createRow(start, end, distance, fee) {
-    return { start, end, distance, fee }
+function createRow(start, end, distance, fee, line) {
+    // line是在哪条线路上，可能有多个站点，所以是一个数组
+    return { start, end, distance, fee, line }
 }
 
 /* 计算地铁乘车费用 */
@@ -91,10 +92,11 @@ function getFee(distance) {
     {string} start 始发站
     {string} end 终点站
     {Dict} adjList 邻接表
+    {Array{Array}} allLines 所有线路的信息
     @return 
     {Array} res 长度为4的数组，0存最短距离，1存最短路径，2是费用, 3是表格的行信息
 */
-function Dijkstra(start, end, adjList) {
+function Dijkstra(start, end, adjList, allLine) {
     if (!adjList.hasOwnProperty(start) || !adjList.hasOwnProperty(end)) return -1;
     let arrived = [start];  /* 到达过的点 */
     let rows = []   /* 未来表格需要渲染的内容 */
@@ -151,7 +153,17 @@ function Dijkstra(start, end, adjList) {
             }
         }
         arrived.push(selectNode);
-        rows.push(createRow(start, selectNode, dijList[selectNode].toFixed(3), getFee(dijList[selectNode])));
+        
+        let onWhichLine = [];
+        /* 判断这个站点在哪条线路上 */
+        for (let each of allLine) {
+            if (each.indexOf(selectNode) > 0) {
+                onWhichLine.push(each[1]);
+                onWhichLine.push(' ');
+            }
+        }
+
+        rows.push(createRow(start, selectNode, dijList[selectNode].toFixed(3), getFee(dijList[selectNode]), [...onWhichLine]));
     }
     // console.log(dijList);
 
@@ -233,6 +245,37 @@ class DataHandler {
             }
         }
     }
+
+};
+
+// eslint-disable-next-line
+var quickSort = function (arr) {
+
+    if (arr.length <= 1) { return arr; }
+
+    var pivotIndex = Math.floor(arr.length / 2);
+
+    var pivot = arr.splice(pivotIndex, 1)[0];
+
+    var left = [];
+
+    var right = [];
+
+    for (var i = 0; i < arr.length; i++) {
+
+        if (arr[i] < pivot) {
+
+            left.push(arr[i]);
+
+        } else {
+
+            right.push(arr[i]);
+
+        }
+
+    }
+
+    return quickSort(left).concat([pivot], quickSort(right));
 
 };
 
