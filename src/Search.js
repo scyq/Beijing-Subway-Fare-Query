@@ -106,7 +106,7 @@ export default function Search(props) {
                         本线路地铁费用为 {fee} 元
                     </Container>
 
-                    <StickyHeadTable tableRows={tableRows}>
+                    <StickyHeadTable tableRows={tableRows} style={{ overflow: 'auto'}}>
                     </StickyHeadTable>
                 </div>
             </Backdrop>

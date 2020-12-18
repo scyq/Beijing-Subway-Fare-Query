@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Beijing-Subway-Fare-Query/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/Beijing-Subway-Fare-Query/static/js/main.5db3f42a.chunk.js",
-    "main.js.map": "/Beijing-Subway-Fare-Query/static/js/main.5db3f42a.chunk.js.map",
+    "main.js": "/Beijing-Subway-Fare-Query/static/js/main.ff152f56.chunk.js",
+    "main.js.map": "/Beijing-Subway-Fare-Query/static/js/main.ff152f56.chunk.js.map",
     "runtime-main.js": "/Beijing-Subway-Fare-Query/static/js/runtime-main.45a9e50c.js",
     "runtime-main.js.map": "/Beijing-Subway-Fare-Query/static/js/runtime-main.45a9e50c.js.map",
     "static/js/2.c29752c1.chunk.js": "/Beijing-Subway-Fare-Query/static/js/2.c29752c1.chunk.js",
     "static/js/2.c29752c1.chunk.js.map": "/Beijing-Subway-Fare-Query/static/js/2.c29752c1.chunk.js.map",
     "index.html": "/Beijing-Subway-Fare-Query/index.html",
-    "precache-manifest.b51aaa34eee221aff1ff6d25d18202ce.js": "/Beijing-Subway-Fare-Query/precache-manifest.b51aaa34eee221aff1ff6d25d18202ce.js",
+    "precache-manifest.382536c78717a9b58c3beccbcd29a934.js": "/Beijing-Subway-Fare-Query/precache-manifest.382536c78717a9b58c3beccbcd29a934.js",
     "service-worker.js": "/Beijing-Subway-Fare-Query/service-worker.js",
     "static/css/main.5ecd60fb.chunk.css.map": "/Beijing-Subway-Fare-Query/static/css/main.5ecd60fb.chunk.css.map",
     "static/js/2.c29752c1.chunk.js.LICENSE.txt": "/Beijing-Subway-Fare-Query/static/js/2.c29752c1.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.45a9e50c.js",
     "static/js/2.c29752c1.chunk.js",
     "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.5db3f42a.chunk.js"
+    "static/js/main.ff152f56.chunk.js"
   ]
 }

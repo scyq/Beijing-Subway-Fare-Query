@@ -35,10 +35,12 @@ const columns = [
 const useStyles = makeStyles({
   root: {
     width: '80%',
-    zIndex: 99
+    zIndex: 99,
+    overflow: 'auto',
   },
   container: {
     maxHeight: 1200,
+    overflow: 'auto'
   },
 });
 
